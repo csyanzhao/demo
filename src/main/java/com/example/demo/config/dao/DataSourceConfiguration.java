@@ -11,14 +11,19 @@ import java.beans.PropertyVetoException;
 @Configuration
 @MapperScan("com.example.demo.dao")
 public class DataSourceConfiguration {
+
     @Value("${jdbc.driver}")
     private String jdbcDriver;
-    @Value("${jdbc.jdbcUrl}")
+
+    @Value("${jdbc.url}")
     private String jdbcUrl;
-    @Value("${jdbc.jdbcUsername}")
+
+    @Value("${jdbc.username}")
     private String jdbcUsername;
-    @Value("${jdbc.jdbcPassword}")
+
+    @Value("${jdbc.password}")
     private String jdbcPassword;
+
     @Bean(name = "dataSource")
     public ComboPooledDataSource createDataSource() throws PropertyVetoException {
         ComboPooledDataSource dataSource = new ComboPooledDataSource();

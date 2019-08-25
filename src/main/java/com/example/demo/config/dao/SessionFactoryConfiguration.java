@@ -1,5 +1,7 @@
 package com.example.demo.config.dao;
 
+
+
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -10,6 +12,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import javax.sql.DataSource;
+import java.io.IOException;
 
 @Configuration
 public class SessionFactoryConfiguration {
@@ -24,14 +27,14 @@ public class SessionFactoryConfiguration {
     private String entityPackage;
 
     @Bean(name="sqlSessionFactory")
-    public SqlSessionFactoryBean createSqlSessionFactoryBean(){
+    public SqlSessionFactoryBean createSqlSessionFactoryBean() throws ClassNotFoundException, IOException {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-        sqlSessionFactoryBean.setConfiguration(new ClassPathResource(mybatisConfigFilePath));
+        sqlSessionFactoryBean.setConfigLocation(new ClassPathResource(mybatisConfigFilePath));
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         String packageSearchPath = PathMatchingResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX+mapperPath;
-        sqlSessionFactoryBean.setMapperLocations(resolver.getResource(packageSearchPath));
+        sqlSessionFactoryBean.setMapperLocations(resolver.getResources(packageSearchPath));
         sqlSessionFactoryBean.setDataSource(dataSource);
-        sqlSessionFactoryBean.setTypeAliases(entityPackage);
+        sqlSessionFactoryBean.setTypeAliasesPackage(entityPackage);
         return sqlSessionFactoryBean;
     }
 }
