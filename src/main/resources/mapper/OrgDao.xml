@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.OrgDao">
+    <select id="queryOrg" resultType="com.example.demo.entity.Org">
+        select id,name,code,created,last_upd from org order by id desc
+    </select>
+    <select id="queryOrgById" resultType="com.example.demo.entity.Org">
+        select id,name,code,created,last_upd from org where id = #{id}
+    </select>
+    <insert id="insertOrg" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="com.example.demo.entity.Org">
+        insert into org(id,name,created,last_upd)values(#{id}，#{name}，#{code}，#{created},#{lastUpd})
+    </insert>
+    <update id="updateOrg" parameterType="com.example.demo.entity.Org">
+        update org <set>
+        <if test="name!=null">name=#{name}</if>
+        <if test="name!=null">name=#{code}</if>
+        <if test="name!=null">name=#{last_upd}</if>
+    </set>
+    where id=#{id}
+    </update>
+    <delete id="deleteOrg">
+        delete from org where id=#{id}
+    </delete>
+</mapper>
