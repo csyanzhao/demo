@@ -8,7 +8,7 @@
         select id,name,code,created,last_upd from org where id = #{id}
     </select>
     <insert id="insertOrg" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="com.example.demo.entity.Org">
-        insert into org(id,name,created,last_upd)values(#{id}，#{name}，#{code}，#{created},#{lastUpd})
+        insert into org(id,name,created,last_upd)values(#{id},#{name},#{code},#{created},#{lastUpd})
     </insert>
     <update id="updateOrg" parameterType="com.example.demo.entity.Org">
         update org <set>
